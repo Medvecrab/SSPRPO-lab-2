@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8">
+    <!-- Настройка viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Нестандартные экскурсии АК | НЭАК</title>
+    <!-- Bootstrap CSS (Cloudflare CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
+          integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- jQuery (Cloudflare CDN) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js"
+            integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tree-fill"
+                 viewBox="0 0 16 16">
+                <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5z"/>
+            </svg>
+            Нестандартные экскурсии АК
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="/index-admin" class="nav-link px-2 text-white">Редактирование экскурсий</a></li>
+                <li><a href="/tour/create" class="nav-link px-2 text-white">Добавление экскурсии</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<body>
+<div class="container mt-4">
+    <h3 class="text-center">Просмотр экскурсии по Алтайскому краю</h3>
+    <div class="card mx-auto p-0">
+        <img src="" th:src="'data:image/png;base64,'+ ${converter.encodeToString(tour.place.photo)}"
+             class="card-img-top w-100" alt="">
+        <div class="card-body h-auto">
+            <h5 class="card-title" th:utext="${tour.name}"></h5>
+            <p class="card-text" th:utext="${tour.description}"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item px-3 py-1"
+                th:utext="'Эксурсовод: ' + ${tour.guide.surname} + ' ' + ${tour.guide.name} + ' ' + ${tour.guide.middleName}"></li>
+            <li class="list-group-item px-3 py-1" th:utext="'Место: ' + ${tour.place.name}"></li>
+            <li class="list-group-item px-3 py-1" th:utext="'Стоимость: ' + ${tour.costs}"></li>
+            <li class="list-group-item px-3 py-1"
+                th:utext="'Продолжительность: ' + ${tour.duration.getHours()} + ' час(а) ' + ${tour.duration.getMinutes()} + ' минут(ы)'"></li>
+            <li class="list-group-item px-3 py-1" th:utext="'Дни проведения экскурсии: ' + ${tour.tourDays}"></li>
+        </ul>
+        <button type="button" onclick="location.href='/'" class="btn btn-primary my-2 mx-4"
+                style="background-color:Orange; border:Orange;">Назад
+        </button>
+    </div>
+</div>
+
+</body>
+</html>

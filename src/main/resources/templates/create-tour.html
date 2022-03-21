@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8">
+    <!-- Настройка viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Нестандартные экскурсии АК | НЭАК</title>
+    <!-- Bootstrap CSS (Cloudflare CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- jQuery (Cloudflare CDN) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tree-fill" viewBox="0 0 16 16">
+                <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777l-3-4.5z"/>
+            </svg>
+            Нестандартные экскурсии АК
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                <li><a href="/index-admin" class="nav-link px-2 text-white" >Редактирование экскурсий</a></li>
+                <li><a href="#" class="nav-link px-2 text-secondary" >Добавление экскурсий</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<body>
+<div class="container mt-4">
+    <h3 class="text-center">Добавление экскурсии по Алтайскому краю</h3>
+    <form method="post" action="#" th:action="@{/tour/create/}" th:object="${tourForm}">
+        <div class="form-group row">
+            <label for="forName" class="col-sm-2 col-form-label">Название</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="forName" placeholder="Введите название экскурсии" th:name="name"
+                       th:id="name" required="required">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forDescriprion" class="col-sm-2 col-form-label">Описание</label>
+            <div class="col-sm-4">
+                <textarea class="form-control" id="forDescriprion" th:name="description" th:id="description"
+                          placeholder="Введите описание экскурсии" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forTime" class="col-sm-2 col-form-label">Длительность</label>
+            <div class="col-sm-4">
+                <input type="time" class="form-control" id="forTime" placeholder="Введите время"
+                       th:name="duration" th:id="duration" required="required">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forGuide" class="col-sm-2 col-form-label">Экскурсовод</label>
+            <div class="col-sm-4">
+                <select class="form-select" aria-label="Экскурсовод" id="forGuide" th:name="guideId" th:id="guideId">
+                    <option th:each="guide : ${guides}"
+                            th:value="${guide.getId()}"
+                            th:utext="${guide.surname} + ' ' + ${guide.name} + ' ' + ${guide.middleName}">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forPlaces" class="col-sm-2 col-form-label">Место</label>
+            <div class="col-sm-4">
+                <select class="form-select" aria-label="Место" id="forPlaces" th:name="placeId" th:id="placeId">
+                    <option th:each="place : ${places}"
+                            th:value="${place.getId()}"
+                            th:utext="${place.name}">
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forCost" class="col-sm-2 col-form-label">Стоимость</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="forCost" th:name="costs" th:id="costs"
+                       placeholder="Введите стоимость экскурсии">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="forCost" class="col-sm-2 col-form-label">Дни недели, в которые проводится экскурсия</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="forDay" th:name="tourDays" th:id="tourDays"
+                       placeholder="Введите дни экскурсии" required="required">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary col-sm-4" style="background-color:Orange; border:Orange;">Добавить</button> <!-- -->
+                <button type="button" onclick="location.href='/index-admin'" class="btn btn-warning col-sm-2">Назад</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
